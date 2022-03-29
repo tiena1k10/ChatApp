@@ -6,11 +6,11 @@ const requireAuth = require("../midlewares/authMidleware");
 router.get("*",requireAuth.checkUser);
 router.get('/', (req, res) => res.render('home'));
 router.get('/chatroom', requireAuth.requireAuth, chatRoomCtl.chatroom_get);
-router.get("/signup", authController.singup_get);
+router.get("/signup",requireAuth.requireLoggedout, authController.singup_get);
 router.post("/signup",authController.singup_post);
-router.get("/login",authController.login_get);
+router.get("/login",requireAuth.requireLoggedout,authController.login_get);
 router.post("/login",authController.login_post);
-router.get("/logout",authController.logout_get);
+router.get("/logout",requireAuth.requireAuth,authController.logout_get);
 
 
 
