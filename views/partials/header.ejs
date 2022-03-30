@@ -5,13 +5,14 @@
   <title>My Chat App</title>
   <link rel="stylesheet" href="/styles.css">
   <link rel="icon" href="/messenger.png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-  <nav>
+  <nav class="">
     <h1><a href="/">Home</a></h1>
     <ul>
       <% if(user){ %>
-        <li>Welcome <%= user.name %></li>
+        <li >Welcome <p id="fullname-header"><%= user.name %></p></li>
         <li><a class="btn" href="/logout">Log out</a></li>
       <% } else{ %>  
         <li><a href="/login">Log in</a></li>

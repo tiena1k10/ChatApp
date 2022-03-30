@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const authRoutes = require("./routes/authRoutes");
 const cookieParser = require("cookie-parser");
 var bodyParser = require('body-parser')
-
+const socketio = require("socket.io");
 
 
 
@@ -28,16 +28,17 @@ const PORT = 3000 || process.env.PORT;
 
 
 
-
 // database connection
 const dbURI = 'mongodb://localhost:27017/ChatApp';
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
   .then((result) => {
-    app.listen(PORT)
+    var server = app.listen(PORT)
+    var io = socketio(server)
+    const socketioControl = require("./controllers/socketio");
+    socketioControl(io);
     console.log("app is running on http://localhost:3000/")
     })
   .catch((err) => console.log(err));
 
 // routes
-
 app.use(authRoutes)
