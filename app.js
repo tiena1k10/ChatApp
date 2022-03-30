@@ -41,4 +41,5 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
   .catch((err) => console.log(err));
 
 // routes
-app.use(authRoutes)
+app.use(authRoutes);
+module.exports.PORT = PORT

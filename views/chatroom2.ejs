@@ -6,7 +6,7 @@
             <div class="inbox_people">
               <div class="headind_srch">
                 <div class="recent_heading">
-                  <h4>People</h4>
+                  <h4 id="online_counter">Online</h4>
                 </div>
               </div>
               <div class="inbox_chat">
@@ -52,20 +52,11 @@
                     <p>Apollo University, Delhi, India Test</p>
                     <span class="time_date"> 11:01 AM    |    Today</span> </div>
                 </div>
-                <div class="incoming_msg">
-                  <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                  <div class="received_msg">
-                    <div class="received_withd_msg">
-                      <p>We work directly with our designers and suppliers,
-                        and sell direct to you, which means quality, exclusive
-                        products, at a price anyone can afford.</p>
-                      <span class="time_date"> 11:01 AM    |    Today</span></div>
-                  </div>
-                </div>
+                
               </div>
               <div class="type_msg">
                 <div class="input_msg_write">
-                  <input type="text" class="write_msg" placeholder="Type a message" />
+                  <input id="mess_content" type="text" class="write_msg" placeholder="Type a message" />
                   <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
                 </div>
               </div>
@@ -73,11 +64,13 @@
           </div> 
         </div>
     </div>
+    <div class="hidden" style="display: none;"><%=PORT  %></div>
 <%- include('partials/footer'); -%>
 <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
 <script>
   const fullname = document.getElementById("fullname-header").textContent;
-  var socket = io.connect("http://localhost:3000/");
+  var port = document.querySelector(".hidden").textContent;
+  var socket = io.connect(`http://localhost:${port}/`);
   socket.on("connect", ()=>{
     socket.emit("adduser",fullname);
   })
@@ -85,6 +78,7 @@
   // ==============================================================
   socket.on("update_list_user", data=>{
     console.log(data);
+    document.querySelector("#online_counter").textContent = "Online ("+data.length+")";
     document.querySelector(".inbox_chat").innerHTML='';
     data.forEach(element => {
       document.querySelector(".inbox_chat").innerHTML +=  
@@ -99,5 +93,41 @@
     const temp = document.querySelector(".noti_list").innerHTML;
     document.querySelector(".noti_list").innerHTML =  
     "<li><b style='bold'>" + data.sender + ": </b>"+data.message  + " ( " +data.time +" ) "+ "</li>" + temp;
+  })
+  // update yourself mess
+  socket.on("update_log_chat_from_yourself", data=>{
+    const temp = document.querySelector(".msg_history").innerHTML;
+    document.querySelector(".msg_history").innerHTML += 
+    '<div class="outgoing_msg"><div class="sent_msg"><p>'+data.content+'</p><span class="time_date">'+data.time+'</span> </div></div>'
+    var element = document.querySelector(".msg_history");
+    element.scrollTop = element.scrollHeight;
+  })
+  //up date mess 
+  socket.on("update_log_chat_from_people", data=>{
+    const temp = document.querySelector(".msg_history").innerHTML;
+    document.querySelector(".msg_history").innerHTML += 
+    '<div class="incoming_msg"><div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div><div class="received_msg"><div class="received_withd_msg"><p>'+data.content+'</p><span class="time_date">'+data.time+'</span></div></div></div>'
+    var element = document.querySelector(".msg_history");
+    element.scrollTop = element.scrollHeight;
+  })
+  // event click
+  function sendMess(){
+    const inputVal = document.getElementById("mess_content");
+    if(inputVal.value.trim().length!=0){
+      socket.emit("client_send_mess_to_server",inputVal.value);
+      inputVal.value="";
+    }
+  }
+  const a =document.getElementById("mess_content")
+  document.querySelector(".msg_send_btn").addEventListener("click" ,(e)=>{
+    e.preventDefault();
+    sendMess();
+  })
+  document.getElementById("mess_content").addEventListener("keyup",(e)=>{
+    if (event.keyCode === 13){
+      e.preventDefault();
+      sendMess();
+
+    }
   })
 </script>

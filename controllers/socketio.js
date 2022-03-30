@@ -27,6 +27,7 @@ module.exports = function (io){
             socket.broadcast.emit("update_noti",data);
             socket.broadcast.emit("update_list_user",allUsers);
         })
+        // disconect
         socket.on('disconnect', function() {
             var data = {
                 sender:"SERVER",
@@ -40,8 +41,19 @@ module.exports = function (io){
             allUsers.splice(allUsers.indexOf(socket.fullname),1);
             socket.broadcast.emit("update_list_user",allUsers);
          });
-    })
-    // disconect
+         // user send chat
+        socket.on("client_send_mess_to_server",message=>{
+            // noti another
+            var data = {
+                sender: socket.fullname,
+                content: message,
+                time: getTime()
+            }
+            socket.broadcast.emit("update_log_chat_from_people",data);
+            socket.emit("update_log_chat_from_yourself",data);
+        })
+        
+    });
     
 }
 function getTime(){
