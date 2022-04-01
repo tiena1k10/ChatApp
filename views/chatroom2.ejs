@@ -24,35 +24,28 @@
           </div>
             <div class="mesgs">
               <div class="msg_history">
-                <div class="incoming_msg">
-                  <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                  <div class="received_msg">
-                    <div class="received_withd_msg">
-                      <p>Test which is a new approach to have all
-                        solutions</p>
-                      <span class="time_date"> 11:01 AM    |    June 9</span></div>
-                  </div>
-                </div>
-                <div class="outgoing_msg">
-                  <div class="sent_msg">
-                    <p>Test which is a new approach to have all
-                      solutions</p>
-                    <span class="time_date"> 11:01 AM    |    June 9</span> </div>
-                </div>
-                <div class="incoming_msg">
-                  <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                  <div class="received_msg">
-                    <div class="received_withd_msg">
-                      <p>Test, which is a new approach to have</p>
-                      <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
-                  </div>
-                </div>
-                <div class="outgoing_msg">
-                  <div class="sent_msg">
-                    <p>Apollo University, Delhi, India Test</p>
-                    <span class="time_date"> 11:01 AM    |    Today</span> </div>
-                </div>
                 
+                <div class="parent">
+
+                  <div class="outgoing_msg">
+                    <div class="sent_msg">
+                      <p>Apollo University, Delhi, India Test</p>
+                      <span class="time_date"> 11:01</span> 
+                    </div>
+                  </div>
+                  <div class="message_from_users">
+                    <div class="mfu_avatar">
+                        <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
+                    </div>
+                    <div class="mfu_content">
+                      <div class="mfu_sender">Hiccac</div>
+                      <div class="mfu_content_midle"><span>The most beautiful beach in VN is Nha Trang, many tourists come to visit Nha Trang every year. There are about 90 millions people in VN. The people are very friendly and kind. The food is very delicious like Pho, Nem...
+                      </span></div>
+                      <div class="mfu_send_time">20:19</div>
+                    </div>
+                  </div>
+                  
+                </div>
               </div>
               <div class="type_msg">
                 <div class="input_msg_write">
@@ -96,17 +89,32 @@
   })
   // update yourself mess
   socket.on("update_log_chat_from_yourself", data=>{
-    const temp = document.querySelector(".msg_history").innerHTML;
-    document.querySelector(".msg_history").innerHTML += 
-    '<div class="outgoing_msg"><div class="sent_msg"><p>'+data.content+'</p><span class="time_date">'+data.time+'</span> </div></div>'
+    const temp = document.querySelector(".parent").innerHTML;
+    document.querySelector(".parent").innerHTML += 
+    `<div class="outgoing_msg">
+                    <div class="sent_msg">
+                      <p>${data.content}</p>
+                      <span class="time_date">${data.time}</span> 
+                    </div>
+                  </div>`
     var element = document.querySelector(".msg_history");
     element.scrollTop = element.scrollHeight;
   })
   //up date mess 
   socket.on("update_log_chat_from_people", data=>{
-    const temp = document.querySelector(".msg_history").innerHTML;
-    document.querySelector(".msg_history").innerHTML += 
-    '<div class="incoming_msg"><div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div><div class="received_msg"><div class="received_withd_msg"><p>'+data.content+'</p><span class="time_date">'+data.time+'</span></div></div></div>'
+    const temp = document.querySelector(".parent").innerHTML;
+    document.querySelector(".parent").innerHTML += 
+    `<div class="message_from_users">
+                    <div class="mfu_avatar">
+                        <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
+                    </div>
+                    <div class="mfu_content">
+                      <div class="mfu_sender">${data.sender}</div>
+                      <div class="mfu_content_midle"><span>${data.content}
+                      </span></div>
+                      <div class="mfu_send_time">${data.time}</div>
+                    </div>
+                  </div>`
     var element = document.querySelector(".msg_history");
     element.scrollTop = element.scrollHeight;
   })

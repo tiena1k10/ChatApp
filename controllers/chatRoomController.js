@@ -1,7 +1,10 @@
 
-const PORT = require("../app.js");
+
 
 module.exports.chatroom_get = (req,res)=>{
-    console.log(PORT.PORT);
     res.render("chatroom2");
 }
+module.exports.chatwithsim_get = (req,res)=>{
+    res.render("chatwithsim");
+}
+

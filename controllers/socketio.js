@@ -1,3 +1,5 @@
+const { response } = require('express');
+const axios = require('axios').default;
 
 module.exports = function (io){
    var allUsers =[];
@@ -52,7 +54,36 @@ module.exports = function (io){
             socket.broadcast.emit("update_log_chat_from_people",data);
             socket.emit("update_log_chat_from_yourself",data);
         })
-        
+
+
+
+
+        ///=============================simsimi=========================//
+        socket.on("user_ask_sim", async text=>{
+            try {
+                //const response = await axios.get(`https://simsimi.info/api/?text=${text}&lc=vn`);
+                //const response = await axios.get(`https://tuanxuong.com/api/simsimi/index.php?text=${text}`);
+                const URI = `https://api.simsimi.net/v2/?text=${text}&lc=vn&cf=false`;
+                const encodedURI = encodeURI(URI);
+                const response = await axios.get(encodedURI);
+                if(response.data.success==="Tôi không biết bạn đang nói gì. Hãy dạy tôi"){
+                    response.data.success="Mày nói cái đéo gì thế ?";
+                }
+                var data = {
+                    sender:"Simsimi",
+                    content: response.data.success,
+                    time:getTime()
+                }
+                socket.emit("sim_anwser",data);
+              } catch (error) {
+                var data = {
+                    sender:"Simsimi",
+                    content: "tao đơ rồi, nói cái gì cơ ?",
+                    time:getTime()
+                }
+                socket.emit("sim_anwser",data);
+              }
+        })
     });
     
 }
@@ -61,3 +92,4 @@ function getTime(){
     var time = today.getHours() + ":" + today.getMinutes();
     return time;
 }
+// hiccac => 
