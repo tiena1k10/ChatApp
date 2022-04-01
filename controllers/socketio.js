@@ -89,6 +89,9 @@ module.exports = function (io){
 }
 function getTime(){
     var today = new Date();
+    var a = (today.getHours() + 7)%24;
+    var time = a + ":" + today.getMinutes();
+    return time;var today = new Date();
     var time = today.getHours() + ":" + today.getMinutes();
     return time;
 }
