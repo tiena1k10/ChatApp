@@ -20,15 +20,3 @@
 //         return "loi roi"
 //     })
 // }
-const axios = require('axios').default;
-async function getUser(text) {
-  text = text.replaceAll(' ', '%20');
-  console.log(text);
-    try {
-      const response = await axios.get(`https://api.simsimi.net/v2/?text=${text}&lc=vn&cf=false`);
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  getUser("anh tiến đẹp chai");

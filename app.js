@@ -29,7 +29,7 @@ const PORT = 3000 || process.env.PORT;
 
 
 // database connection
-const dbURI = 'mongodb://localhost:27017/ChatApp';
+const dbURI = 'mongodb+srv://tiena1k10:Tiendz123@chatapp.do7ro.mongodb.net/ChatApp?retryWrites=true&w=majority';
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
   .then((result) => {
     var server = app.listen(PORT)
