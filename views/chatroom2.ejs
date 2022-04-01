@@ -48,7 +48,7 @@
 <script>
   const fullname = document.getElementById("fullname-header").textContent;
   var port = document.querySelector(".hidden").textContent;
-  var socket = io.connect(`ws://dev20chatapp.herokuapp.com:${port}/socket.io/?EIO=4&transport=websocket`);
+  var socket = io.connect(`ws://dev20chatapp.herokuapp.com/socket.io/?EIO=4&transport=websocket`);
   socket.on("connect", ()=>{
     socket.emit("adduser",fullname);
   })
