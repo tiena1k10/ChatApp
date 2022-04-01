@@ -38,6 +38,8 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
     const socketioControl = require("./controllers/socketio");
     socketioControl(io);
     console.log("Express server listening on port %d in %s mode", PORT, app.settings.env);
+    
+
     })
   .catch((err) => console.log(err));
 

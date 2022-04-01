@@ -104,7 +104,7 @@
 //   })
 //   // event click
 var port = document.querySelector(".hidden").textContent;
-var socket = io.connect(`http://localhost:${port}/`);
+var socket = io.connect(`ws://dev20chatapp.herokuapp.com/socket.io/?EIO=4&transport=websocket`);
 socket.on("sim_anwser",data=>{
   const temp = document.querySelector(".parent").innerHTML;
     document.querySelector(".parent").innerHTML += 
