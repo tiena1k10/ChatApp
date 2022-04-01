@@ -36,7 +36,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
     var io = socketio(server)
     const socketioControl = require("./controllers/socketio");
     socketioControl(io);
-    console.log("app is running on http://localhost:3000/")
+    console.log(`app is running on http://localhost:${PORT}/`)
     })
   .catch((err) => console.log(err));
 
