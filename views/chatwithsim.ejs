@@ -10,6 +10,18 @@
                 </div>
               </div>
               <div class="inbox_chat">
+                <div class="chat_list active_chat">
+                  <div class="chat_people">
+                    <div class="chat_img">
+                       <img style ="border-radius: 12px;" src="https://apkhay.com/wp-content/uploads/2018/07/SimSimi-APK.png" alt="sunil">
+                      </div>
+                      <div class="chat_ib">
+                        <div class="chat_name">
+                          <b>Simsimi</b>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
               </div>
               <div class="Notifications_header">
                 <div class="recent_heading">
@@ -47,73 +59,18 @@
 <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-//   const fullname = document.getElementById("fullname-header").textContent;
-//   socket.on("connect", ()=>{
-  //     socket.emit("adduser",fullname);
-  //   })
-  //   // add user to list user
-//   // ==============================================================
-// //   socket.on("update_list_user", data=>{
-  // //     console.log(data);
-  // //     document.querySelector("#online_counter").textContent = "Online ("+data.length+")";
-  // //     document.querySelector(".inbox_chat").innerHTML='';
-  // //     data.forEach(element => {
-    // //       document.querySelector(".inbox_chat").innerHTML +=  
-// //       '<div class="chat_list active_chat"><div class="chat_people"><div class="chat_img"> <img src="https://apkhay.com/wp-content/uploads/2018/07/SimSimi-APK.png" alt="sunil"> </div><div class="chat_ib"><div class="chat_name"><b>'+element+'</b></div></div></div></div>'
-
-// //     });
-// //   })
-//   //==============================================================
-
-//   // listen notifications event
-// //   socket.on("update_noti", data=>{
-  // //     const temp = document.querySelector(".noti_list").innerHTML;
-  // //     document.querySelector(".noti_list").innerHTML =  
-// //     "<li><b style='bold'>" + data.sender + ": </b>"+data.message  + " ( " +data.time +" ) "+ "</li>" + temp;
-// //   })
-//   // update yourself mess 
-//   // socket.on("update_log_chat_from_yourself", data=>{
-//   //   const temp = document.querySelector(".parent").innerHTML;
-//   //   document.querySelector(".parent").innerHTML += 
-//   //   `<div class="outgoing_msg">
-  //   //                   <div class="sent_msg">
-    //   //                     <p>${data.content}</p>
-    //   //                     <span class="time_date">${data.time}</span> 
-//   //                   </div>
-//   //                 </div>`
-//   //   var element = document.querySelector(".msg_history");
-//   //   element.scrollTop = element.scrollHeight;
-//   // })
-//   //up date mess 
-//   socket.on("update_log_chat_from_sim", data=>{
-  //     const temp = document.querySelector(".parent").innerHTML;
-  //     document.querySelector(".parent").innerHTML += 
-  //     `<div class="message_from_users">
-    //                     <div class="mfu_avatar">
-    //                         <img src="https://apkhay.com/wp-content/uploads/2018/07/SimSimi-APK.png" alt="sunil">
-    //                     </div>
-    //                     <div class="mfu_content">
-      //                       <div class="mfu_sender">${data.sender}</div>
-      //                       <div class="mfu_content_midle"><span>${data.content}
-        //                       </span></div>
-//                       <div class="mfu_send_time">${data.time}</div>
-//                     </div>
-//                   </div>`
-//     var element = document.querySelector(".msg_history");
-//     element.scrollTop = element.scrollHeight;
-//   })
-//   // event click
 var port = document.querySelector(".hidden").textContent;
+//var socket = io.connect(`http://localhost:${port}`);
 var socket = io.connect(`/`);
+
 socket.on("sim_anwser",data=>{
   const temp = document.querySelector(".parent").innerHTML;
     document.querySelector(".parent").innerHTML += 
     `<div class="message_from_users">
                       <div class="mfu_avatar">
-                            <img src="https://apkhay.com/wp-content/uploads/2018/07/SimSimi-APK.png" alt="sunil">
+                            <img style ="border-radius: 12px;" src="https://apkhay.com/wp-content/uploads/2018/07/SimSimi-APK.png" alt="sunil">
                         </div>
                     <div class="mfu_content">
-                      <div class="mfu_sender">${data.sender}</div>
                       <div class="mfu_content_midle"><span>${data.content}
                       </span></div>
                       <div class="mfu_send_time">${data.time}</div>

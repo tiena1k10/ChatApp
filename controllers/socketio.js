@@ -23,7 +23,7 @@ module.exports = function (io){
             // notyfy to another user
             var data = {
                 sender:"SERVER",
-                message: fullname + " have join chat room",
+                message: fullname + " join",
                 time: getTime(),
             };
             socket.broadcast.emit("update_noti",data);
@@ -33,7 +33,7 @@ module.exports = function (io){
         socket.on('disconnect', function() {
             var data = {
                 sender:"SERVER",
-                message: socket.fullname + " have left chat room",
+                message: socket.fullname + " left",
                 time: getTime(),
             };
             socket.broadcast.emit("update_noti",data);
