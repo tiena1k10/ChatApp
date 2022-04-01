@@ -21,11 +21,12 @@ app.use(express.json());
 app.use(cookieParser());
 // view engine
 app.set('view engine', 'ejs');
-const PORT = 3000 || process.env.PORT;
 
 
 
 
+
+const PORT = process.env.PORT || 3000;
 
 
 // database connection
@@ -36,7 +37,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
     var io = socketio(server)
     const socketioControl = require("./controllers/socketio");
     socketioControl(io);
-    console.log(`app is running on http://localhost:${PORT}/`)
+    console.log("Express server listening on port %d in %s mode", PORT, app.settings.env);
     })
   .catch((err) => console.log(err));
 
