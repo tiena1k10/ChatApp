@@ -138,3 +138,7 @@ footer{
   margin-top: 120px;
   color: #aaa;
 }
+#chatwithsimcss{
+  text-decoration: underline;
+  font-style: oblique;
+}
