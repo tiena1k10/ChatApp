@@ -1,22 +1,11 @@
-//  const fetch = require('node-fetch');
+const assert = require('assert');
+const simsimi = require('simsimi')({
+  key: '6uaIjLXATy86Ty98mXD9s1OrJst3Ebnx5ZIbwh0c',
+});
 
-// const text = "anh là ai ?";
-// async function log(){
-//     const response = await fetch(`https://simsimi.info/api/?text=${text}&lc=vn`);
-//     const data = await response.json();
+const input = 'hello simsimi';
 
-//     console.log(data.success);
-
-// }
-// module.exports.getReplyMess=(text)=>{
-//     fetch(`https://simsimi.info/api/?text=${text}&lc=vn`)
-//     .then(response=>{
-//         return response.json();
-//     })
-//     .then(infor=>{
-//         return infor.success;
-//     })
-//     .catch((err)=>{
-//         return "loi roi"
-//     })
-// }
+simsimi(input, (err, text, response) => {
+  
+    console.log(err);
+});
