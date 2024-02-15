@@ -21,11 +21,13 @@ app.use(cookieParser());
 // view engine
 app.set("view engine", "ejs");
 
+// dotenv
+require("dotenv").config();
+
 const PORT = process.env.PORT || 3000;
 
 // database connection
-const dbURI =
-  "mongodb+srv://tiena1k10:aQ3MonVvZNECAWmM@cluster.gakas.mongodb.net/ChatApp?retryWrites=true&w=majority";
+const dbURI = process.env.DATABASE_URL || ''
 mongoose
   .connect(dbURI, {
     useNewUrlParser: true,
