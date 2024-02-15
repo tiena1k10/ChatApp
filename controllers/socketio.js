@@ -88,6 +88,6 @@ module.exports = function (io) {
 };
 function getTime() {
   // get time format HH:MM tz Asia/Ho_Chi_Minh
-  return dayjs().format("HH:mm");
+  return dayjs().tz('Asia/Ho_Chi_Minh').format('HH:mm');
 }
 // hiccac =>
