@@ -1,72 +1,76 @@
 <%- include('partials/header'); -%>
-<link rel="stylesheet" href="sotai.css">
+<link rel="stylesheet" href="sotai.css" />
 <div class="container">
-    <div class="messaging">
-          <div class="inbox_msg">
-            <div class="inbox_people">
-              <div class="headind_srch">
-                <div class="recent_heading">
-                  <h4 id="online_counter">Online</h4>
-                </div>
-              </div>
-              <div class="inbox_chat">
-                <div class="chat_list active_chat">
-                  <div class="chat_people">
-                    <div class="chat_img">
-                       <img style ="border-radius: 12px;" src="/sim.png" alt="sunil">
-                      </div>
-                      <div class="chat_ib">
-                        <div class="chat_name">
-                          <b>Simsimi</b>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-              <div class="Notifications_header">
-                <div class="recent_heading">
-                  <h4>Notifications</h4>
-                </div>
-              </div>
-              <div class="notifications_chat">
-                <ul class="noti_list">
-                  
-                </ul>
-              </div>
+  <div class="messaging">
+    <div class="inbox_msg">
+      <div class="inbox_people">
+        <div class="headind_srch">
+          <div class="recent_heading">
+            <h4 id="online_counter">Online</h4>
           </div>
-            <div class="mesgs">
-              <div class="msg_history">
-                
-                <div class="parent">
-
-                  
-                  
-                  
-                </div>
+        </div>
+        <div class="inbox_chat">
+          <div class="chat_list active_chat">
+            <div class="chat_people">
+              <div class="chat_img">
+                <img style="border-radius: 12px" src="/sim.png" alt="sunil" />
               </div>
-              <div class="type_msg">
-                <div class="input_msg_write">
-                  <input id="mess_content" type="text" class="write_msg" placeholder="Type a message" />
-                  <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+              <div class="chat_ib">
+                <div class="chat_name">
+                  <b>Simsimi</b>
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
         </div>
+        <div class="Notifications_header">
+          <div class="recent_heading">
+            <h4>Notifications</h4>
+          </div>
+        </div>
+        <div class="notifications_chat">
+          <ul class="noti_list"></ul>
+        </div>
+      </div>
+      <div class="mesgs">
+        <div class="msg_history">
+          <div class="parent"></div>
+        </div>
+        <div class="type_msg">
+          <div class="input_msg_write">
+            <input
+              id="mess_content"
+              type="text"
+              class="write_msg"
+              placeholder="Type a message"
+            />
+            <button class="msg_send_btn" type="button">
+              <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="hidden" style="display: none;"><%=PORT  %></div>
+  </div>
+</div>
+<div class="hidden" style="display: none"><%=PORT %></div>
 <%- include('partials/footer'); -%>
-<script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+<script
+  src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+  integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
+  crossorigin="anonymous"
+></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-var port = document.querySelector(".hidden").textContent;
-//var socket = io.connect(`http://localhost:${port}`);
-var socket = io.connect(`/`);
+  var port = document.querySelector(".hidden").textContent;
+  //var socket = io.connect(`http://localhost:${port}`);
+  var socket = io.connect(`/`);
 
-socket.on("sim_anwser",data=>{
-  const temp = document.querySelector(".parent").innerHTML;
-    document.querySelector(".parent").innerHTML += 
-    `<div class="message_from_users">
+  socket.on("sim_anwser", (data) => {
+    const temp = document.querySelector(".parent").innerHTML;
+    document.querySelector(
+      ".parent"
+    ).innerHTML += `<div class="message_from_users">
                       <div class="mfu_avatar">
                             <img style ="border-radius: 12px;" src="/sim.png" alt="sunil">
                         </div>
@@ -75,44 +79,40 @@ socket.on("sim_anwser",data=>{
                       </span></div>
                       <div class="mfu_send_time">${data.time}</div>
                     </div>
-                  </div>`
+                  </div>`;
     var element = document.querySelector(".msg_history");
     element.scrollTop = element.scrollHeight;
- 
-})
-  function sendMess(){
+  });
+  function sendMess() {
     const inputVal = document.getElementById("mess_content");
-    if(inputVal.value.trim().length!=0){
-        socket.emit("user_ask_sim",inputVal.value);
-        
-        document.querySelector(".parent").innerHTML += 
-        `<div class="outgoing_msg">
+    if (inputVal.value.trim().length != 0) {
+      socket.emit("user_ask_sim", inputVal.value);
+
+      document.querySelector(".parent").innerHTML += `<div class="outgoing_msg">
         <div class="sent_msg">
             <p>${inputVal.value}</p>
             <span class="time_date">${getTime()}</span> 
           </div>
-          </div>`
-        inputVal.value="";
-        var element = document.querySelector(".msg_history");
-        element.scrollTop = element.scrollHeight;
-      }
+          </div>`;
+      inputVal.value = "";
+      var element = document.querySelector(".msg_history");
+      element.scrollTop = element.scrollHeight;
+    }
   }
-  const a =document.getElementById("mess_content")
-  document.querySelector(".msg_send_btn").addEventListener("click" ,(e)=>{
+  const a = document.getElementById("mess_content");
+  document.querySelector(".msg_send_btn").addEventListener("click", (e) => {
+    e.preventDefault();
+    sendMess();
+  });
+  document.getElementById("mess_content").addEventListener("keyup", (e) => {
+    if (event.keyCode === 13) {
       e.preventDefault();
       sendMess();
-  })
-  document.getElementById("mess_content").addEventListener("keyup",(e)=>{
-    if (event.keyCode === 13){
-        e.preventDefault();
-        sendMess();
     }
-  })
-  function getTime(){
+  });
+  function getTime() {
     var today = new Date();
     var time = today.getHours() + ":" + today.getMinutes();
     return time;
   }
-
-
 </script>
