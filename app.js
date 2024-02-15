@@ -30,7 +30,7 @@ const PORT = process.env.PORT || 3000;
 
 
 // database connection
-const dbURI = 'mongodb+srv://tiena1k10:edVJU2pfSvBfrRmy@cluster.gakas.mongodb.net/ChatApp?retryWrites=true&w=majority';
+const dbURI = 'mongodb+srv://tiena1k10:aQ3MonVvZNECAWmM@cluster.gakas.mongodb.net/ChatApp?retryWrites=true&w=majority';
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
   .then((result) => {
     var server = app.listen(PORT)
