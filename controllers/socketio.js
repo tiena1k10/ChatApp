@@ -1,6 +1,14 @@
 const { response } = require("express");
 const axios = require("axios").default;
 const dayjs = require("dayjs");
+require('dayjs/plugin/timezone');
+require('dayjs/plugin/utc');
+const tz = require('dayjs/plugin/timezone');
+const utc = require('dayjs/plugin/utc');
+dayjs.extend(utc);
+dayjs.extend(tz);
+
+
 module.exports = function (io) {
   var allUsers = [];
   var allClient = [];
